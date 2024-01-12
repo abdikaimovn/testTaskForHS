@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6FB459932B51C612009E318C /* sf-ui-display-bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6FB459922B51C612009E318C /* sf-ui-display-bold.otf */; };
 		6FD7B7282B5171D700D35DFC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD7B7272B5171D700D35DFC /* AppDelegate.swift */; };
 		6FD7B72A2B5171D700D35DFC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD7B7292B5171D700D35DFC /* SceneDelegate.swift */; };
 		6FD7B72C2B5171D700D35DFC /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD7B72B2B5171D700D35DFC /* MainViewController.swift */; };
@@ -20,12 +21,12 @@
 		6FD7B7612B51B0A600D35DFC /* FakeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD7B7602B51B0A600D35DFC /* FakeViewController.swift */; };
 		6FD7B7632B51B0F000D35DFC /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD7B7622B51B0F000D35DFC /* MainPresenter.swift */; };
 		6FD7B7652B51B0FF00D35DFC /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD7B7642B51B0FF00D35DFC /* MainModel.swift */; };
-		6FD7B7742B51B44700D35DFC /* sf-ui-display-bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6FD7B76C2B51B44700D35DFC /* sf-ui-display-bold.otf */; };
 		6FD7B7752B51B44700D35DFC /* sf-ui-display-light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6FD7B76D2B51B44700D35DFC /* sf-ui-display-light.otf */; };
 		6FD7B7792B51B73D00D35DFC /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD7B7782B51B73D00D35DFC /* Protocols.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6FB459922B51C612009E318C /* sf-ui-display-bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "sf-ui-display-bold.otf"; sourceTree = "<group>"; };
 		6FD7B7242B5171D700D35DFC /* testTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = testTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FD7B7272B5171D700D35DFC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6FD7B7292B5171D700D35DFC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -40,7 +41,6 @@
 		6FD7B7602B51B0A600D35DFC /* FakeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeViewController.swift; sourceTree = "<group>"; };
 		6FD7B7622B51B0F000D35DFC /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
 		6FD7B7642B51B0FF00D35DFC /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
-		6FD7B76C2B51B44700D35DFC /* sf-ui-display-bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "sf-ui-display-bold.otf"; sourceTree = "<group>"; };
 		6FD7B76D2B51B44700D35DFC /* sf-ui-display-light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "sf-ui-display-light.otf"; sourceTree = "<group>"; };
 		6FD7B7782B51B73D00D35DFC /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -76,9 +76,9 @@
 		6FD7B7262B5171D700D35DFC /* testTask */ = {
 			isa = PBXGroup;
 			children = (
-				6FD7B75C2B51B00F00D35DFC /* MainModule */,
 				6FD7B73B2B51791300D35DFC /* Support */,
 				6FD7B73D2B518C1000D35DFC /* TabBar */,
+				6FD7B75C2B51B00F00D35DFC /* MainModule */,
 			);
 			path = testTask;
 			sourceTree = "<group>";
@@ -154,7 +154,7 @@
 		6FD7B7662B51B43000D35DFC /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				6FD7B76C2B51B44700D35DFC /* sf-ui-display-bold.otf */,
+				6FB459922B51C612009E318C /* sf-ui-display-bold.otf */,
 				6FD7B76D2B51B44700D35DFC /* sf-ui-display-light.otf */,
 			);
 			path = Fonts;
@@ -234,8 +234,8 @@
 			files = (
 				6FD7B7342B5171D800D35DFC /* LaunchScreen.storyboard in Resources */,
 				6FD7B7752B51B44700D35DFC /* sf-ui-display-light.otf in Resources */,
+				6FB459932B51C612009E318C /* sf-ui-display-bold.otf in Resources */,
 				6FD7B7312B5171D800D35DFC /* Assets.xcassets in Resources */,
-				6FD7B7742B51B44700D35DFC /* sf-ui-display-bold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
