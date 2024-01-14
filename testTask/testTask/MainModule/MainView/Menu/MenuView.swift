@@ -24,6 +24,7 @@ final class MenuView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         setupViews()
     }
     

@@ -6,3 +6,9 @@
 //
 
 import Foundation
+import UIKit
+
+struct MainModel {
+    let title: String
+    let image: UIImage
+}
