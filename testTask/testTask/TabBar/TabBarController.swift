@@ -6,13 +6,20 @@
 //
 
 import UIKit
+import SnapKit
 
 class TabBarController: UITabBarController {
-
+    private let topLine: UIView = {
+        let view = UIView()
+        view.backgroundColor = .lightGray
+        return view
+    }()
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -22,6 +29,14 @@ class TabBarController: UITabBarController {
     private func setupTabBar() {
         tabBar.tintColor = UIColor.shared.darkPink
         tabBar.unselectedItemTintColor = UIColor.lightGray
+        tabBar.backgroundColor = .white
+        
+        tabBar.addSubview(topLine)
+        topLine.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            make.top.equalToSuperview()
+            make.height.equalTo(1)
+        }
         
         viewControllers = [
             createViewController(viewInfo: ViewInfo(view: createMainModule(),

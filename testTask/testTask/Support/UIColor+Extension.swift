@@ -40,4 +40,8 @@ extension UIColor {
     var darkPink: UIColor {
         UIColor(hex: "#fd3b6a")!
     }
+    
+    var mainBackgroundColor: UIColor {
+        UIColor(hex: "#f3f5f9")!
+    }
 }
