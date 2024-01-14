@@ -8,6 +8,7 @@
 import UIKit
 
 final class MenuView: UIView {
+    private var titlesForButtons = [String]()
     private lazy var menuCollectionView: UICollectionView = {
         var layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
@@ -26,6 +27,11 @@ final class MenuView: UIView {
         super.init(frame: frame)
         
         setupViews()
+    }
+    
+    func configure(with titles: [String]) {
+        titlesForButtons = titles
+        menuCollectionView.reloadData()
     }
     
     required init?(coder: NSCoder) {
@@ -55,11 +61,12 @@ final class MenuView: UIView {
 
 extension MenuView: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        10
+        titlesForButtons.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MenuCollectionViewCell", for: indexPath) as! MenuCollectionViewCell
+        cell.configure(title: titlesForButtons[indexPath.row])
         return cell
     }
 }

@@ -11,9 +11,9 @@ class MenuCollectionViewCell: UICollectionViewCell {
     private let sectionButton: UIButton = {
         let button = UIButton()
         button.setTitle("Пицца", for: .normal)
-        button.titleLabel?.font = UIFont.defaultFont
+        button.titleLabel?.font = UIFont.defaultBoldFont
         button.layer.borderColor = UIColor.shared.lightPink.cgColor
-        button.layer.borderWidth = 1.0
+        button.layer.borderWidth = 2.0
         button.layer.cornerRadius = 15
         button.layer.cornerCurve = .continuous
         button.setTitleColor(UIColor.shared.lightPink, for: .normal)
@@ -28,6 +28,10 @@ class MenuCollectionViewCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configure(title: String) {
+        self.sectionButton.setTitle(title, for: .normal)
     }
     
     private func setupView() {
