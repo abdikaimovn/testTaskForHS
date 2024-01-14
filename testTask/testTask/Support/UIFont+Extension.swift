@@ -47,7 +47,7 @@ extension UIFont {
             fontSize = 20.0
         }
         
-        let font = UIFont(name: "SFUIDisplay-Bold", size: fontSize)!
+        let font = UIFont(name: "SFUIDisplay-SemiBold", size: fontSize)!
         return font
     }
 }
