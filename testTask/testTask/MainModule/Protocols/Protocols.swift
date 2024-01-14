@@ -8,5 +8,8 @@
 import Foundation
 
 protocol MainViewProtocol: AnyObject{
-    
+    func showLoader()
+    func hideLoader()
+    func setupMenu(with titles: [String])
+    func setupTableView(with data: [MainModel])
 }

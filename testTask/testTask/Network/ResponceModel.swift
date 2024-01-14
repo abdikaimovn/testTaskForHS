@@ -7,13 +7,17 @@
 
 import Foundation
 
+struct ResultForRoute {
+    let forRoute: Route
+    let result: [DishModel]
+}
+
 struct ResponseModel: Codable {
     let results: [DishModel]
     let offset: Int
     let number: Int
     let totalResults: Int
 }
-
 
 struct DishModel: Codable {
     let id: Int

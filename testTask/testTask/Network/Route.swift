@@ -8,17 +8,17 @@
 import Foundation
 
 struct AppConfig {
-    static let apiKey = "631a60d7da9f45278a1094b4a8764c5c"
+    static let apiKey = "0d636d5bdd594687a995424719dfca5e"
 }
 
-enum Route {
+enum Route: String {
     static let baseUrl = "https://api.spoonacular.com/recipes/complexSearch?cuisine="
     
-    case asian
-    case american
-    case german
-    case italian
-    case european
+    case asian = "Asian"
+    case american = "American"
+    case german = "German"
+    case italian = "Italian"
+    case european = "European"
     
     var description: String {
         switch self {

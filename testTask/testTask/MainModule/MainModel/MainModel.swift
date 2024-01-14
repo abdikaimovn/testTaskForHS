@@ -9,6 +9,11 @@ import Foundation
 import UIKit
 
 struct MainModel {
-    let title: String
-    let image: UIImage
+    let category: String
+    let items: [ItemModel]
+}
+
+struct ItemModel {
+    let name: String
+    let imagePath: String
 }

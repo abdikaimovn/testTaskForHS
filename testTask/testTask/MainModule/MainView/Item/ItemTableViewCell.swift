@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 final class ItemTableViewCell: UITableViewCell {
     private let itemView: UIView = {
@@ -18,7 +19,7 @@ final class ItemTableViewCell: UITableViewCell {
     private let itemImage: UIImageView = {
         let image = UIImageView()
         image.backgroundColor = .blue
-        image.contentMode = .scaleAspectFit
+        image.contentMode = .scaleToFill
         return image
     }()
     
@@ -32,7 +33,7 @@ final class ItemTableViewCell: UITableViewCell {
     
     private let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test"
+        label.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Natoque penatibus et magnis dis parturient montes. Nec nam aliquam sem et tortor. Adipiscing elit duis tristique sollicitudin nibh sit. Sit amet tellus cras adipiscing."
         label.font = UIFont.defaultFont
         label.numberOfLines = 0
         label.textColor = .black
@@ -61,7 +62,17 @@ final class ItemTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func configure(with data: ItemModel) {
+        if let url = URL(string: data.imagePath) {
+            itemImage.kf.setImage(with: url)
+        }
+        
+        titleLabel.text = data.name
+    }
+    
     private func setupViews() {
+        contentView.backgroundColor = .white
+        selectionStyle = .none
         contentView.addSubview(itemView)
         
         itemView.snp.makeConstraints { make in

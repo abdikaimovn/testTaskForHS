@@ -10,6 +10,10 @@ import SnapKit
 
 final class MainViewController: UIViewController {
     private let presenter: MainPresenter
+    private let loader = UIActivityIndicatorView()
+    private let loaderView = UIView()
+    
+    private var data = [MainModel]()
     
     private let cityView: UIView = {
         let view = UIView()
@@ -24,7 +28,7 @@ final class MainViewController: UIViewController {
         label.font = UIFont.defaultBoldFont
         return label
     }()
-
+    
     private let arrowImageView: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "arrow.down")
@@ -33,7 +37,7 @@ final class MainViewController: UIViewController {
         return image
     }()
     
-    private let menuView: UIView = {
+    private let menuView: MenuView = {
         let view = MenuView()
         return view
     }()
@@ -63,8 +67,9 @@ final class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter.viewDidLoaded()
+        
         setupViews()
+        presenter.viewDidLoaded()
     }
     
     private func setupViews() {
@@ -101,14 +106,37 @@ final class MainViewController: UIViewController {
 }
 
 extension MainViewController: MainViewProtocol {
+    func setupMenu(with titles: [String]) {
+        menuView.configure(with: titles)
+    }
     
+    func setupTableView(with data: [MainModel]) {
+        self.data = data
+        mainTableView.reloadData()
+    }
+    
+    func showLoader() {
+        view.addSubview(loaderView)
+        loaderView.backgroundColor = .white
+        loaderView.frame = view.bounds
+        loaderView.addSubview(loader)
+        loader.startAnimating()
+        loader.center = loaderView.center
+    }
+    
+    func hideLoader() {
+        view.alpha = 1
+        loader.stopAnimating()
+        loader.removeFromSuperview()
+        loaderView.removeFromSuperview()
+    }
 }
 
 extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        2
+        return 2 + data.count
     }
-
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 1 {
             menuView.backgroundColor = .clear
@@ -121,9 +149,11 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return 1
+        } else if section == 1 {
+            return 0
         }
         
-        return 10
+        return data[section - 2].items.count
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -147,18 +177,22 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
             let cell = tableView.dequeueReusableCell(withIdentifier: "BannerTableViewCell", for: indexPath) as! BannerTableViewCell
             cell.backgroundColor = .clear
             return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ItemTableViewCell", for: indexPath) as! ItemTableViewCell
+            cell.backgroundColor = .white
+            
+            if indexPath.section > 1 {
+                cell.configure(with: data[indexPath.section - 2].items[indexPath.row])
+                
+                if indexPath.section == 2 && indexPath.row == 0 {
+                    cell.layer.cornerRadius = 20
+                    cell.layer.cornerCurve = .continuous
+                    cell.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+                }
+            }
+            
+            return cell
         }
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemTableViewCell", for: indexPath) as! ItemTableViewCell
-        cell.backgroundColor = .white
-        
-        if indexPath.section == 1 && indexPath.row == 0 {
-            cell.layer.cornerRadius = 20
-            cell.layer.cornerCurve = .continuous
-            cell.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        }
-        
-        return cell
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -170,4 +204,5 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
             view.backgroundColor = UIColor.shared.mainBackgroundColor
         }
     }
+
 }
