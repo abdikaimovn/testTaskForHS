@@ -53,26 +53,42 @@ final class ItemTableViewCell: UITableViewCell {
         return button
     }()
     
+    private let separator: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.shared.mainBackgroundColor
+        return view
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
     }
+   
+     private var imageDownloadTask: DownloadTask?
+    
+     override func prepareForReuse() {
+         super.prepareForReuse()
+         imageDownloadTask?.cancel()
+         itemImage.image = nil
+     }
+
+     func configure(with data: ItemModel) {
+         imageDownloadTask?.cancel()
+
+         if let url = URL(string: data.imagePath) {
+             imageDownloadTask = itemImage.kf.setImage(with: url)
+         }
+
+         titleLabel.text = data.name
+     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with data: ItemModel) {
-        if let url = URL(string: data.imagePath) {
-            itemImage.kf.setImage(with: url)
-        }
-        
-        titleLabel.text = data.name
-    }
-    
     private func setupViews() {
-        contentView.backgroundColor = .white
         selectionStyle = .none
+        
         contentView.addSubview(itemView)
         
         itemView.snp.makeConstraints { make in
@@ -110,6 +126,11 @@ final class ItemTableViewCell: UITableViewCell {
             make.width.equalTo(descriptionLabel.snp.width).dividedBy(2)
             make.bottom.equalToSuperview().offset(-24)
         }
-
+        
+        itemView.addSubview(separator)
+        separator.snp.makeConstraints { make in
+            make.leading.trailing.bottom.equalToSuperview()
+            make.height.equalTo(1)
+        }
     }
 }

@@ -7,8 +7,16 @@
 
 import UIKit
 
+protocol MenuViewDelegate: AnyObject {
+    func sectionButtonDidTapped(with route: Route)
+}
+
 final class MenuView: UIView {
-    private var titlesForButtons = [String]()
+    weak var delegate: MenuViewDelegate?
+    private var selectedCategoryIndex: Int = 0
+    
+    private var categories = [SectionModel]()
+    
     private lazy var menuCollectionView: UICollectionView = {
         var layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
@@ -29,8 +37,14 @@ final class MenuView: UIView {
         setupViews()
     }
     
-    func configure(with titles: [String]) {
-        titlesForButtons = titles
+    func configure(with titles: [Route]) {
+        for title in 0..<titles.count {
+            if title == 0 {
+                categories.append(SectionModel(isSelected: true, title: titles[title]))
+            } else {
+                categories.append(SectionModel(isSelected: false, title: titles[title]))
+            }
+        }
         menuCollectionView.reloadData()
     }
     
@@ -61,12 +75,22 @@ final class MenuView: UIView {
 
 extension MenuView: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        titlesForButtons.count
+        categories.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let indexes = [IndexPath(row: selectedCategoryIndex, section: 0), IndexPath(row: indexPath.row, section: 0)]
+        categories[selectedCategoryIndex].isSelected = false
+        categories[indexPath.row].isSelected = true
+        selectedCategoryIndex = indexPath.row
+        collectionView.reloadItems(at: indexes)
+        collectionView.scrollToItem(at: indexes[1], at: .centeredHorizontally, animated: true)
+        delegate?.sectionButtonDidTapped(with: categories[indexPath.row].title)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MenuCollectionViewCell", for: indexPath) as! MenuCollectionViewCell
-        cell.configure(title: titlesForButtons[indexPath.row])
+        cell.configure(model: categories[indexPath.row])
         return cell
     }
 }

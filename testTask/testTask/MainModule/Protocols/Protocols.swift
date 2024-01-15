@@ -10,6 +10,6 @@ import Foundation
 protocol MainViewProtocol: AnyObject{
     func showLoader()
     func hideLoader()
-    func setupMenu(with titles: [String])
-    func setupTableView(with data: [MainModel])
+    func setupMenu(with titles: [Route])
+    func setupTableView(with data: [ItemModel])
 }

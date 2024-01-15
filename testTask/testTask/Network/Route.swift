@@ -8,7 +8,8 @@
 import Foundation
 
 struct AppConfig {
-    static let apiKey = "0d636d5bdd594687a995424719dfca5e"
+    static let apiKey = "631a60d7da9f45278a1094b4a8764c5c"
+    
 }
 
 enum Route: String {
