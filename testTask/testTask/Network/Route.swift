@@ -8,8 +8,9 @@
 import Foundation
 
 struct AppConfig {
+    //Ключ для api (Api может обрабатывать в день 150 запросов так как это 'Бесплатный план')
+    //В случае если запросы не работают, причиной может быть лимит api
     static let apiKey = "631a60d7da9f45278a1094b4a8764c5c"
-    
 }
 
 enum Route: String {

@@ -38,6 +38,7 @@ final class MenuView: UIView {
     }
     
     func configure(with titles: [Route]) {
+        //Пробразование [Route] в [SectionModel]
         for title in 0..<titles.count {
             if title == 0 {
                 categories.append(SectionModel(isSelected: true, title: titles[title]))

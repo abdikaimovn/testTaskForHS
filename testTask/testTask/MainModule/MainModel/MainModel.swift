@@ -14,6 +14,7 @@ struct ItemModel {
     let imagePath: String
 }
 
+//Модель для MenuView
 struct SectionModel {
     var isSelected: Bool
     let title: Route

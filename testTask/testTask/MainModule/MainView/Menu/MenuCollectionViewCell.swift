@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class MenuCollectionViewCell: UICollectionViewCell {
+class MenuCollectionViewCell: UICollectionViewCell {
     private let sectionButton: UIButton = {
         let button = UIButton()
         button.setTitle("Пицца", for: .normal)
