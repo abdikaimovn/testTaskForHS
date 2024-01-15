@@ -19,6 +19,7 @@ final class MainPresenter {
         
         dispatchGroup.enter()
         NetworkService.shared.fetchDishes(routes: routes) { result in
+            self.view?.hideLoader()
             switch result {
             case .success(let data):
                 var itemModel: [ItemModel] = []
@@ -30,12 +31,10 @@ final class MainPresenter {
                     
                     titles.append(element.forRoute)
                 }
-                
-                self.view?.hideLoader()
                 self.view?.setupMenu(with: titles)
                 self.view?.setupTableView(with: itemModel)
             case .failure(let failure):
-                print(failure)
+                self.view?.showError(with: failure.localizedDescription)
             }
         }
     }

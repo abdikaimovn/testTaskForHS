@@ -106,6 +106,10 @@ final class MainViewController: UIViewController {
 }
 
 extension MainViewController: MainViewProtocol {
+    func showError(with message: String) {
+        AlertManager.showAlert(in: self, title: "ERROR", message: message)
+    }
+    
     func setupMenu(with titles: [Route]) {
         menuView.configure(with: titles)
         menuView.delegate = self
@@ -126,10 +130,12 @@ extension MainViewController: MainViewProtocol {
     }
     
     func hideLoader() {
-        view.alpha = 1
-        loader.stopAnimating()
-        loader.removeFromSuperview()
-        loaderView.removeFromSuperview()
+        DispatchQueue.main.async {
+            self.view.alpha = 1
+            self.loader.stopAnimating()
+            self.loader.removeFromSuperview()
+            self.loaderView.removeFromSuperview()
+        }
     }
 }
 

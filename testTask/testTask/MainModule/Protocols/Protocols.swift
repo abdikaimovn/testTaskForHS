@@ -12,4 +12,5 @@ protocol MainViewProtocol: AnyObject{
     func hideLoader()
     func setupMenu(with titles: [Route])
     func setupTableView(with data: [ItemModel])
+    func showError(with message: String)
 }

@@ -9,7 +9,8 @@ import Foundation
 
 struct NetworkService {
     static let shared = NetworkService()
-
+    
+    // Запрос извлекающий список данных для всех видов route
     func fetchDishes(routes: [Route], completion: @escaping (Result<[ResultForRoute], Error>) -> Void) {
         var results = [ResultForRoute]()
         let dispatchGroup = DispatchGroup()
@@ -24,7 +25,7 @@ struct NetworkService {
                     let resultForRoute = ResultForRoute(forRoute: route, result: responseModel.results)
                     results.append(resultForRoute)
                 case .failure(let error):
-                    print(error)
+                    completion(.failure(error))
                     break
                 }
 
