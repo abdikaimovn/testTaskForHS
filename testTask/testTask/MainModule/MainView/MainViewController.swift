@@ -13,7 +13,7 @@ final class MainViewController: UIViewController {
     private let loader = UIActivityIndicatorView()
     private let loaderView = UIView()
     
-    private var data = [MainModel]()
+    private var data = [ItemModel]()
     
     private let cityView: UIView = {
         let view = UIView()
@@ -106,11 +106,12 @@ final class MainViewController: UIViewController {
 }
 
 extension MainViewController: MainViewProtocol {
-    func setupMenu(with titles: [String]) {
+    func setupMenu(with titles: [Route]) {
         menuView.configure(with: titles)
+        menuView.delegate = self
     }
     
-    func setupTableView(with data: [MainModel]) {
+    func setupTableView(with data: [ItemModel]) {
         self.data = data
         mainTableView.reloadData()
     }
@@ -132,9 +133,18 @@ extension MainViewController: MainViewProtocol {
     }
 }
 
+extension MainViewController: MenuViewDelegate {
+    func sectionButtonDidTapped(with route: Route) {
+        let row = data.firstIndex { item in
+            item.category == route
+        }
+        mainTableView.scrollToRow(at: IndexPath(row: row!, section: 1), at: .top, animated: true)
+    }
+}
+
 extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2 + data.count
+        return 2
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -149,11 +159,9 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return 1
-        } else if section == 1 {
-            return 0
         }
         
-        return data[section - 2].items.count
+        return data.count
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -177,22 +185,20 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
             let cell = tableView.dequeueReusableCell(withIdentifier: "BannerTableViewCell", for: indexPath) as! BannerTableViewCell
             cell.backgroundColor = .clear
             return cell
-        } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ItemTableViewCell", for: indexPath) as! ItemTableViewCell
-            cell.backgroundColor = .white
-            
-            if indexPath.section > 1 {
-                cell.configure(with: data[indexPath.section - 2].items[indexPath.row])
-                
-                if indexPath.section == 2 && indexPath.row == 0 {
-                    cell.layer.cornerRadius = 20
-                    cell.layer.cornerCurve = .continuous
-                    cell.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-                }
-            }
-            
-            return cell
         }
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemTableViewCell", for: indexPath) as! ItemTableViewCell
+        cell.backgroundColor = .white
+        cell.configure(with: data[indexPath.row])
+        
+        if indexPath.section == 1 && indexPath.row == 0 {
+            cell.layer.masksToBounds = true
+            cell.layer.cornerRadius = 20
+            cell.layer.cornerCurve = .continuous
+            cell.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        }
+        
+        return cell
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -204,5 +210,5 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
             view.backgroundColor = UIColor.shared.mainBackgroundColor
         }
     }
-
+    
 }

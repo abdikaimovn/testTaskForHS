@@ -14,29 +14,26 @@ final class MainPresenter {
     func viewDidLoaded() {
         view?.showLoader()
         let dispatchGroup = DispatchGroup()
-        var mainModel = [MainModel]()
-        var titles = [String]()
+        var titles = [Route]()
         let routes: [Route] = [.asian, .american, .european, .german, .italian]
         
         dispatchGroup.enter()
         NetworkService.shared.fetchDishes(routes: routes) { result in
             switch result {
             case .success(let data):
+                var itemModel: [ItemModel] = []
                 for element in data {
-                    var itemModel: [ItemModel] = []
                     
                     for i in element.result {
-                        itemModel.append(ItemModel(name: i.title, imagePath: i.imagePath))
+                        itemModel.append(ItemModel(category: element.forRoute, name: i.title, imagePath: i.imagePath))
                     }
-                    titles.append(element.forRoute.rawValue)
-                    mainModel.append(
-                        MainModel(category: element.forRoute.rawValue,
-                                  items: itemModel)
-                    )
+                    
+                    titles.append(element.forRoute)
                 }
+                
                 self.view?.hideLoader()
                 self.view?.setupMenu(with: titles)
-                self.view?.setupTableView(with: mainModel)
+                self.view?.setupTableView(with: itemModel)
             case .failure(let failure):
                 print(failure)
             }

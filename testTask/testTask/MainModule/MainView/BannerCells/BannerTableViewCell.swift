@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class BannerTableViewCell: UITableViewCell {
+final class BannerTableViewCell: UITableViewCell {
     private lazy var bannerCollectionView: UICollectionView = {
         var layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: contentView.bounds.width, height: contentView.bounds.width * 0.35)

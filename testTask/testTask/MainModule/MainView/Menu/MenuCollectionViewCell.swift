@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MenuCollectionViewCell: UICollectionViewCell {
+final class MenuCollectionViewCell: UICollectionViewCell {
     private let sectionButton: UIButton = {
         let button = UIButton()
         button.setTitle("Пицца", for: .normal)
@@ -15,6 +15,7 @@ class MenuCollectionViewCell: UICollectionViewCell {
         button.layer.borderColor = UIColor.shared.lightPink.cgColor
         button.layer.borderWidth = 2.0
         button.layer.cornerRadius = 15
+        button.isUserInteractionEnabled = false
         button.layer.cornerCurve = .continuous
         button.setTitleColor(UIColor.shared.lightPink, for: .normal)
         button.backgroundColor = .clear
@@ -30,8 +31,16 @@ class MenuCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(title: String) {
-        self.sectionButton.setTitle(title, for: .normal)
+    func configure(model: SectionModel) {
+        self.sectionButton.setTitle(model.title.rawValue, for: .normal)
+        
+        if model.isSelected {
+            sectionButton.setTitleColor(UIColor.shared.darkPink, for: .normal)
+            sectionButton.backgroundColor = UIColor.shared.lightPink
+        } else {
+            sectionButton.setTitleColor(UIColor.shared.lightPink, for: .normal)
+            sectionButton.backgroundColor = .clear
+        }
     }
     
     private func setupView() {

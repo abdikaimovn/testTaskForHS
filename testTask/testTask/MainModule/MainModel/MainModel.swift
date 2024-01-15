@@ -8,12 +8,13 @@
 import Foundation
 import UIKit
 
-struct MainModel {
-    let category: String
-    let items: [ItemModel]
-}
-
 struct ItemModel {
+    let category: Route
     let name: String
     let imagePath: String
+}
+
+struct SectionModel {
+    var isSelected: Bool
+    let title: Route
 }

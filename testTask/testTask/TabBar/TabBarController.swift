@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class TabBarController: UITabBarController {
+final class TabBarController: UITabBarController {
     private let topLine: UIView = {
         let view = UIView()
         view.backgroundColor = .lightGray
