@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct NetworkService {
+final class NetworkService {
     static let shared = NetworkService()
     
     // Запрос извлекающий список данных для всех видов route

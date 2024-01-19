@@ -12,14 +12,14 @@ struct ResultForRoute {
     let result: [DishModel]
 }
 
-struct ResponseModel: Codable {
+struct ResponseModel: Decodable {
     let results: [DishModel]
     let offset: Int
     let number: Int
     let totalResults: Int
 }
 
-struct DishModel: Codable {
+struct DishModel: Decodable {
     let id: Int
     let title: String
     let imagePath: String

@@ -18,8 +18,6 @@ class AlertManager {
             actions.forEach { alert.addAction($0) }
         }
         
-        DispatchQueue.main.async {
-            viewController.present(alert, animated: true, completion: nil)
-        }
+        viewController.present(alert, animated: true, completion: nil)
     }
 }
