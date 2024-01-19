@@ -26,7 +26,6 @@ final class ItemTableViewCell: UITableViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.defaultBoldFont
-        label.text = "Test"
         label.textColor = .black
         return label
     }()

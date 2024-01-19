@@ -11,28 +11,37 @@ import UIKit
 final class MainPresenter {
     weak var view: MainViewProtocol?
     
+    func numberOfSections() -> Int {
+        2
+    }
+    
+    private func parse(data: [ResultForRoute]) -> ([Route], [ItemModel]){
+        var titles = [Route]()
+        var itemModel = [ItemModel]()
+        
+        for element in data {
+            
+            for i in element.result {
+                itemModel.append(ItemModel(category: element.forRoute, name: i.title, imagePath: i.imagePath))
+            }
+            
+            titles.append(element.forRoute)
+        }
+        
+        return (titles, itemModel)
+    }
+    
     func viewDidLoaded() {
         view?.showLoader()
-        let dispatchGroup = DispatchGroup()
-        var titles = [Route]()
-        let routes: [Route] = [.asian, .american, .european, .german, .italian]
-        
-        dispatchGroup.enter()
+        let routes: [Route] = Route.allCases
+    
         NetworkService.shared.fetchDishes(routes: routes) { result in
             self.view?.hideLoader()
             switch result {
             case .success(let data):
-                var itemModel: [ItemModel] = []
-                for element in data {
-                    
-                    for i in element.result {
-                        itemModel.append(ItemModel(category: element.forRoute, name: i.title, imagePath: i.imagePath))
-                    }
-                    
-                    titles.append(element.forRoute)
-                }
-                self.view?.setupMenu(with: titles)
-                self.view?.setupTableView(with: itemModel)
+                let data = self.parse(data: data)
+                self.view?.setupMenu(with: data.0)
+                self.view?.setupTableView(with: data.1)
             case .failure(let failure):
                 self.view?.showError(with: failure.localizedDescription)
             }

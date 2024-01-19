@@ -37,8 +37,10 @@ final class MainViewController: UIViewController {
         return image
     }()
     
-    private let menuView: MenuView = {
+    private lazy var menuView: MenuView = {
         let view = MenuView()
+        view.backgroundColor = .clear
+        view.delegate = self
         return view
     }()
     
@@ -112,7 +114,6 @@ extension MainViewController: MainViewProtocol {
     
     func setupMenu(with titles: [Route]) {
         menuView.configure(with: titles)
-        menuView.delegate = self
     }
     
     func setupTableView(with data: [ItemModel]) {
@@ -130,12 +131,9 @@ extension MainViewController: MainViewProtocol {
     }
     
     func hideLoader() {
-        DispatchQueue.main.async {
-            self.view.alpha = 1
-            self.loader.stopAnimating()
-            self.loader.removeFromSuperview()
-            self.loaderView.removeFromSuperview()
-        }
+        self.loader.stopAnimating()
+        self.loader.removeFromSuperview()
+        self.loaderView.removeFromSuperview()
     }
 }
 
@@ -150,12 +148,11 @@ extension MainViewController: MenuViewDelegate {
 
 extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        presenter.numberOfSections()
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 1 {
-            menuView.backgroundColor = .clear
             return menuView
         }
         

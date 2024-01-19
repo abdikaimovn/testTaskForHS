@@ -13,7 +13,7 @@ struct AppConfig {
     static let apiKey = "631a60d7da9f45278a1094b4a8764c5c"
 }
 
-enum Route: String {
+enum Route: String, CaseIterable {
     static let baseUrl = "https://api.spoonacular.com/recipes/complexSearch?cuisine="
     
     case asian = "Asian"

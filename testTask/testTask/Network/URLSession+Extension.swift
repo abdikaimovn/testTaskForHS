@@ -13,7 +13,7 @@ extension URLSession {
         case invalidData
     }
     
-    func request<T:Codable>(url: URL?,
+    func request<T: Decodable>(url: URL?,
                             expectingType: T.Type,
                             completion: @escaping ((Result<T, Error>) -> Void) )
     {
